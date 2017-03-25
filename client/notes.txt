@@ -1,0 +1,41 @@
+Alogrithm : 
+
+Implemented following algorithms
+i) Thompson algorithm  
+ii) UCB2
+iii) Epoch-Thompson(inspired by UCB2 algorithm)
+
+i) thompson algorithm
+Intialization : Pull each arm(i) once and update ai,bi based on reward recieved . if success increment ai by 1 else b1 by 1
+
+For each remaining rounds:
+	For each arm get Pi from Beta(ai+1,bi+1) 
+	Pull the arm j with Max Pj
+	Update aj and bj based on reward received.
+	if success increment aj by 1 or else bj by 1
+
+ii) Epoch Thomspon
+Intialization : Pull each arm(i) once and update ai,bi based on reward recieved . if success increment ai by 1 else b1 by 1
+
+For each remaining rounds:
+	For each arm get Pi from Beta(ai+1,bi+1) 
+	
+	Select arm j with Max Pj
+	play arm j for tau(rj+1)-tau(rj-1)
+		Update aj and bj based on reward received.
+		if success increment aj by 1 or else bj by 1
+	increment rj by 1
+
+where tau(r)=ceil((1+alpha)^r) where 0<alpha<1
+
+
+Observation : 
+
+Between thompson,epoch thompson and UCB2 for all horizons and settings UCB2 regret is more.
+
+Between thompson and epoch thompson, epoch thompson regret was lesser when the optimal arm's probablity is closer to sub-optimal arms .  
+
+Reference :
+
+To fetch sample from beta distribution used the module from following git repository :
+https://gist.github.com/sftrabbit/5068941

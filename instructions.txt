@@ -1,0 +1,104 @@
+Assignment 1, CS747, Autumn 2015
+
+In this assignment, you must implement an agent to sample the arms of
+a stochastic multi-armed Bandit that yields Bernoulli rewards. The
+agent's objective is to minimise its regret.
+
+
+CODE
+
+You will find three directories in this code base. 
+
+* The server directory comprises the code to simulate a bandit; in
+  other words, the ``environment''. The server waits for a client
+  (``agent'') to connect with it and start pulling arms in
+  sequence. For each pull, the server generates a 0/1 reward based on
+  the true mean of the arm pulled (known to the server, but unknown to
+  the client), which is communicated back to the agent. Agent/server
+  communication happens through a TCP connection. The server is coded
+  in C++, and compiles into a binary called bandit-environment on
+  running ``make''. It is started with a shell script called
+  startserver.sh.
+
+* The data directory contains an example bandit instance with five
+  arms. Do create and experiment with other instances for testing your
+  agent.
+
+* The client directory is provided to you as an example of what your
+  submission must achieve. The client is the agent that implements an
+  algorithm for sampling the bandit efficiently. The agent provided
+  here merely samples the arm in a round-robin fashion: you will have
+  to implement a more intelligent scheme in order to improve the
+  performance. The sample agent provided is coded in C++: it compiles
+  using ``make'' into a binary called bandit-agent.
+
+Run startexperiment.sh in this directory to run an experiment. Observe
+that it will start the server and the client in sequence. The server
+outputs a log file based on its interaction with the client--the total
+reward (and therefore regret) is available from this log file. 
+
+Run experiments with different random seeds, bandit instances (be sure
+to set numArms accordingly), and horizons to get a sense of the space
+of experiments.
+
+
+SUBMISSION
+
+You must submit a directory titled ``client'', which contains all the
+source and executable files of your agent. The directory must contain
+a script titled startclient.sh, which must take in command line
+arguments in the same sequence as in the sample client. You are free
+to build upon the sample C++ agent provided, or otherwise to implement
+an agent in any programming language of your choice. The hostname and
+port number must suffice for setting up a TCP connection with the
+server.
+
+Your code will be tested by running an experiment that calls
+startclient.sh in your directory: before you submit, make sure you can
+successfully run startexperiment.sh on the departmental (nsl)
+machines.
+
+Include a file called notes.txt in your client directory, that (1)
+describes the algorithm your agent implements, and (2) provides
+references to any libraries and code snippets you have utilised. It is
+okay to use public code for parts of your agent such as the network
+communication module, or, say, libraries for sorting. However, the
+logic used for sampling the arms must entirely be code that you have
+written.
+
+In summary: you must submit your client directory (compressed as
+client.tar.gz) through Moodle. The directory must contain
+startclient.sh, along with all the sources and executables for the
+agent, as well as a notes.txt file.
+
+
+EVALUATION
+
+Your agent will be tested on a number of bandit instances, and with
+varying horizons. For each such instance and horizon, a large number
+of runs (say 20-100) will be conducted by varying the random seed
+passed to the server. The average regret over these runs will be
+recorded.
+
+Your marks on the assignment will be calculated by aggregating the
+performance of your agent across the different experiments. Thus, you
+must aim to develop an algorithm that works well under every possible
+experimental setting.
+
+The instructor may look at your source code and notes to corroborate
+the results obtained by your agent, and may also call you to a
+face-to-face session to explain your code.
+
+
+DEADLINE AND RULES
+
+Your submission is due by 11.59 p.m., Thursday, September 3.  You will
+get a score of zero if your code is not received by the deadline.
+
+You must work alone on this assignment. Do not share any code (whether
+yours or code you have found on the Internet) with your classmates.
+
+You will not be allowed to alter your code in any way after the
+submission deadline. Before submission, make sure that it runs for a
+variety of experimental conditions on the nsl machines.
+
